@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+      <h:form>  
+    <p:megaMenu style="margin-top:20px">
+    <p:submenu label="Account" icon="ui-icon-person">
+        <p:column>
+            <p:submenu label="Account Information">
+                <p:menuitem value="User Profile" url="UserDetails.xhtml" />
+                <p:menuitem value="Change Password" url="ChangePassword.xhtml" />
+            </p:submenu>
+        </p:column>
+        <p:column>
+            <p:graphicImage name="/demo/images/nature/nature1.jpg" width="200"/>
+        </p:column>
+    </p:submenu>
+ 
+    <p:submenu label="Professional" icon="ui-icon-suitcase">
+ 
+        <p:column>
+            <p:submenu label="Professional Profile">
+                <p:menuitem value="Profession Detail" url="ProfessionDetails.xhtml" />
+                <p:menuitem value="Qualification" url="Qualification.xhtml" />
+                <p:menuitem value="Technical Skills" url="technicalSkills.xhtml" />
+                <p:menuitem value="Work Experience" url="WorkExperience.xhtml" />
+            </p:submenu>
+        </p:column>
+ 
+    </p:submenu>
+ 
+     <p:submenu label="Personal" icon="ui-icon-pencil">
+ 
+        <p:column>
+            <p:submenu label="Personal Profile">
+                <p:menuitem value="Personal Detail" url="PersonalDetails.xhtml" />
+                <p:menuitem value="Activities" url="Activities.xhtml" />
+                <p:menuitem value="Non Technical Skills" url="NonTechnicalSkills.xhtml" />
+                <p:menuitem value="Achievements" url="Achievements.xhtml" />
+            </p:submenu>
+        </p:column>
+ 
+    </p:submenu>
+        <p:menuitem value="View My Profile" url="/home.xhtml?uname=#{userSession.session.ucUserUserName}"  />
+        <f:facet name="options">
+            
+            <p:commandButton value="Logout" action="#{userSession.logout()}" icon=" ui-icon-power" />
+        </f:facet>
+</p:megaMenu>
+</h:form>
+    </h:body>
+</html>
+

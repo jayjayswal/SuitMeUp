@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Activities</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menubar.xhtml" />
+        <f:view>
+            <p:panel header="Activities"> 
+                <h:form>
+                    <p:messages id="msgs" />
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="ActivityName" value="Activity Name:" />
+                        <p:inputText id="ActivityName" label="Activity Name" value="#{userActivities.newActivity.uaActivityName}" required="true" requiredMessage="The Activity Name field is required."/>
+                        <p:outputLabel for="ActivityDescription" value="Activity Description:" />
+                        <p:inputText id="ActivityDescription" label="Activity Description" value="#{userActivities.newActivity.uaActivityDescription}" required="true" requiredMessage="The Activity Description field is required." />
+                        <p:outputLabel for="ActivityDate" value="Activity Date:" />
+                        <p:calendar id="ActivityDate" label="Activity Date" value="#{userActivities.newActivity.uaActivityDate}" showOn="button" pattern="dd-MM-yyyy" required="true" requiredMessage="The Qualification Passing Year field is required." />
+                        <f:facet name="footer">
+                            <p:commandButton value="Add Item" ajax="false" action="#{userActivities.createActivities()}"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+                
+                <p:spacer height="30px;"/>
+
+                <h:form>
+                    <p:dataTable value="#{userActivities.useractivities}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Activity Name"/>
+                            </f:facet>
+                            <h:outputText  rendered="#{userActivities.selectedActivity ne item}" value="#{item.uaActivityName}"/>
+                            <h:inputText id="ActivityName" label="Activity Name" required="true" rendered="#{userActivities.selectedActivity eq item}" value="#{userActivities.selectedActivity.uaActivityName}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Activity Description"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userActivities.selectedActivity ne item}" value="#{item.uaActivityDescription}"/>
+                            <h:inputText id="ActivityDescription" label="Activity Description" required="true" rendered="#{userActivities.selectedActivity eq item}" value="#{userActivities.selectedActivity.uaActivityDescription}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Activity Date"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userActivities.selectedActivity ne item}" value="#{item.uaActivityDate}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:outputText>    
+                            <p:calendar id="ActivityDate" label="Activity Date" rendered="#{userActivities.selectedActivity eq item}" value="#{userActivities.selectedActivity.uaActivityDate}" showOn="button" pattern="dd-MM-yyyy" required="true" requiredMessage="The Qualification Passing Year field is required." />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Actions"/>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-check" rendered="#{userActivities.selectedActivity eq item}" ajax="false" value="Update" actionListener="#{userActivities.updateActivity}"  />
+                            <p:commandButton icon="ui-icon-pencil" rendered="#{userActivities.selectedActivity ne item}" ajax="false" value="Edit" actionListener="#{userActivities.setSelectedActivity(item)}"  />
+                            <p:commandButton icon="ui-icon-close" value="Delete" ajax="false" actionListener="#{userActivities.deleteActivities(item)}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:panel>
+        </f:view>
+    </h:body>
+</html>
+

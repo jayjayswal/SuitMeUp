@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <h:head>
+        <title>Achievements</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menubar.xhtml" />
+        <f:view>
+            <p:panel header="Technical Skill"> 
+                <h:form> 
+                     <p:messages id="msgs" />
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="Achievementname" value="Achievement Name:" />
+                        <p:inputText id="Achievementname" label="Achievementname" value="#{userAchievements.newAchievements.uaAchievementName}" required="true" requiredMessage="The Achievement Name field is required."/>               
+                        <p:outputLabel for="AchievementDescription" value="Achievement Description:" />
+                        <p:inputText id="AchievementDescription" label="AchievementDescription" value="#{userAchievements.newAchievements.uaAchievementDescription}" required="true" requiredMessage="The Achievement Description field is required."/>
+                        <p:outputLabel for="AchievementDate" value="Achievement Date:" />
+                        <p:calendar id="AchievementDate" label="AchievementDate" value="#{userAchievements.newAchievements.uaAchievementDate}" showOn="button" pattern="dd-MM-yyyy" required="true" requiredMessage="Achieviment Year field is required." />
+                        <f:facet name="footer">
+                            <p:commandButton ajax="false" value="Add Item" action="#{userAchievements.createAchievement()}"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+                
+                <p:spacer height="30px;"/>   
+                
+                <h:form>
+                    <p:dataTable value="#{userAchievements.usertechAchievements}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Achievement Name"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userAchievements.selectedAchievements ne item}" value="#{item.uaAchievementName}"/>
+                            <h:inputText id="Achievementname" label="Achievement name" required="true" rendered="#{userAchievements.selectedAchievements eq item}" value="#{userAchievements.selectedAchievements.uaAchievementName}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Achievement Description"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userAchievements.selectedAchievements ne item}" value="#{item.uaAchievementDescription}"/>
+                            <h:inputText id="AchievementDescription" label="Achievement Description" rendered="#{userAchievements.selectedAchievements eq item}" value="#{userAchievements.selectedAchievements.uaAchievementDescription}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Achievement Date"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userAchievements.selectedAchievements ne item}" value="#{item.uaAchievementDate}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:outputText>
+                            <p:calendar  id="AchievementDate" label="Achievement Date" rendered="#{userAchievements.selectedAchievements eq item}" value="#{userAchievements.selectedAchievements.uaAchievementDate}" showOn="button" pattern="dd-MM-yyyy" required="true" requiredMessage="The Qualification Passing Year field is required." />                            
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Actions"/>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-check" rendered="#{userAchievements.selectedAchievements eq item}" ajax="false" value="Update" actionListener="#{userAchievements.updateAchievement}"  />
+                            <p:commandButton icon="ui-icon-pencil" rendered="#{userAchievements.selectedAchievements ne item}" ajax="false" value="Edit" actionListener="#{userAchievements.setSelectedAchievements(item)}"  />
+                            <p:commandButton icon="ui-icon-close" value="Delete" ajax="false" actionListener="#{userAchievements.deleteAchievement(item)}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:panel>
+        </f:view>
+    </h:body>
+</html>
+

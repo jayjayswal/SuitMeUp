@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="awesome" name="css/font-awesome.css" />
+    </h:head>
+    <h:body>
+        <ui:include src="menubar.xhtml" />
+        <f:view>
+                <p:panel header="Technical Skill"> 
+                    <h:form>
+                        <p:messages id="msgs" />
+                    <p:panelGrid columns="2">                        
+                            <h:outputLabel for="SkillName" value="Skill Name: " />
+                            <p:inputText id="SkillName" label="Skill Name" value="${userTechnicalSkills.newSkill.utsSkillName}"/>
+                            <h:outputLabel  for="SkillPersentage" value="Skill Persentage: " />
+                            <p:inputText id="SkillPersentage" label="Skill Persentage" value="${userTechnicalSkills.newSkill.utsSkillPercentage}"/>
+                            <h:outputLabel for="SkillDesc" value="Skill One-Line Desc: " />
+                            <p:inputText id="SkillDesc" label="Skill Desc" value="${userTechnicalSkills.newSkill.utsSkillOneLineDescription}"/>
+                            <f:facet name="footer">
+                                <p:commandButton value="Add Item" ajax="false" action="#{userTechnicalSkills.createSkill()}"/>
+                            </f:facet>
+                    </p:panelGrid>
+                     </h:form>
+                    <p:spacer height="30px;"/>
+                    <h:form>
+                <p:dataTable value="#{userTechnicalSkills.usertechskills}" var="item">
+                    <f:facet name="header">Your Skills</f:facet> 
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Skill Name"/>
+                        </f:facet>
+                        <h:outputText rendered="#{userTechnicalSkills.selectedSkill ne item}" value="#{item.utsSkillName}"/>
+                        <h:inputText id="SkillName" label="Skill Name" required="true" rendered="#{userTechnicalSkills.selectedSkill eq item}" value="#{userTechnicalSkills.selectedSkill.utsSkillName}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Skill One-Line Description"/>
+                        </f:facet>
+                        <h:outputText   rendered="#{userTechnicalSkills.selectedSkill ne item}" value="#{item.utsSkillOneLineDescription}"/>
+                        <h:inputText id="SkillDesc" label="Skill Description" required="true" rendered="#{userTechnicalSkills.selectedSkill eq item}" value="#{userTechnicalSkills.selectedSkill.utsSkillOneLineDescription}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Skill Percentage"/>
+                        </f:facet>
+                        <h:outputText rendered="#{userTechnicalSkills.selectedSkill ne item}" value="#{item.utsSkillPercentage}"/>
+                        <h:inputText id="SkillPersentage" label="Skill Persentage" required="true" rendered="#{userTechnicalSkills.selectedSkill eq item}" value="#{userTechnicalSkills.selectedSkill.utsSkillPercentage}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Actions"/>
+                        </f:facet>
+                        <p:commandButton icon="ui-icon-check" rendered="#{userTechnicalSkills.selectedSkill eq item}" ajax="false" value="Update" actionListener="#{userTechnicalSkills.update}"  />
+                        <p:commandButton icon="ui-icon-pencil" rendered="#{userTechnicalSkills.selectedSkill ne item}" ajax="false" value="Edit" actionListener="#{userTechnicalSkills.setSelectedSkill(item)}"  />
+                        <p:commandButton icon="ui-icon-close" value="Delete" ajax="false" actionListener="#{userTechnicalSkills.deleteSkill(item)}" />
+                    </p:column>
+                </p:dataTable>
+                   </h:form>
+                </p:panel>
+            
+        </f:view>
+
+               
+    </h:body>
+</html>
+

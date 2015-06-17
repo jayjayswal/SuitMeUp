@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Profession Details</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menubar.xhtml" />
+        <f:view>
+            <p:panel header="Technical Skill"> 
+                <h:form enctype="multipart/form-data"> 
+                    <p:messages id="msgs" />
+                    <p:growl id="messages" showDetail="true" />
+                    <p:panelGrid columns="2">
+                            <h:outputLabel value="Professional OneLine Description:" for="updProfessionalOneLineDescription" />
+                            <h:inputText size="50" id="updProfessionalOneLineDescription" value="#{userProfessionDetails.selectedProfessionalDetails.updProfessionalOneLineDescription}" title="UpdProfessionalOneLineDescription" required="true" requiredMessage="The UpdProfessionalOneLineDescription field is required."/>
+                            <h:outputLabel value="Professional Profession:" for="updProfessionalProfession" />
+                            <h:inputText size="50" id="updProfessionalProfession" value="#{userProfessionDetails.selectedProfessionalDetails.updProfessionalProfession}" title="UpdProfessionalProfession" />
+                            <h:outputLabel value="Professional Description:" for="updProfessionalDescription" />
+                            <h:inputTextarea rows="10" cols="50" id="updProfessionalDescription" value="#{userProfessionDetails.selectedProfessionalDetails.updProfessionalDescription}" title="UpdProfessionalDescription" />
+                            <h:outputLabel value="Professional Picture:" for="updProfessionalPicture" />
+                            <p:fileUpload id="updProfessionalPicture" invalidSizeMessage="File is too big" invalidFileMessage="Format not supported" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="#{userProfessionDetails.file}" mode="simple"  />
+                            <f:facet name="footer">
+                                <p:commandButton ajax="false" value="Update My Details" action="#{userProfessionDetails.updateDetails()}"/>
+                            </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:panel>
+        </f:view>
+    </h:body>
+</html>
+

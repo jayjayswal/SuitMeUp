@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <h:head>
+        <title>Non Technical Skills</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menubar.xhtml" />
+        <f:view>
+            <p:panel header="Non Technical Skill"> 
+                <h:form>
+                     <p:messages id="msgs" />
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="skillname" value="Non Technical Skill Name:" />
+                        <p:inputText id="skillname" label="Skill Name" value="#{userNonTechnicalSkills.newNonTechSkill.untsSkillName}" required="true" requiredMessage="The Non Technical Skill Name field is required."/>
+                        <p:outputLabel for="skillname" value="Non Technical Skill One-Line Description:" />
+                        <p:inputText  id="skilldesc" label="Skill Description" value="#{userNonTechnicalSkills.newNonTechSkill.untsSkillOneLineDescription}" required="true" requiredMessage="The Non Technical Skill One-Line Description field is required."/>
+                        <p:outputLabel for="skillper" value="Non Technical Skill Percentage:" />
+                        <p:inputText id="skillper" label="Skill Persentage" value="#{userNonTechnicalSkills.newNonTechSkill.untsSkillPercentage}" required="true" requiredMessage="The Non Technical Skill Percentage field is required."/>
+                        <f:facet name="footer">
+                            <p:commandButton value="Add Item" ajax="false" action="#{userNonTechnicalSkills.createNonTechSkill()}"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+                
+                <p:spacer height="30px;"/> 
+                
+                <h:form>
+                    <p:dataTable value="#{userNonTechnicalSkills.userNonTechSkills}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Non Technical Skill Name"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userNonTechnicalSkills.selectedNonTechSkill ne item}" value="#{item.untsSkillName}"/>
+                            <h:inputText id="skillname" label="Skill Name" required="true" rendered="#{userNonTechnicalSkills.selectedNonTechSkill eq item}" value="#{userNonTechnicalSkills.selectedNonTechSkill.untsSkillName}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Non Technical Skill One-Line Description"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userNonTechnicalSkills.selectedNonTechSkill ne item}" value="#{item.untsSkillOneLineDescription}"/>
+                            <h:inputText id="skilldesc" label="Skill Description" required="true" rendered="#{userNonTechnicalSkills.selectedNonTechSkill eq item}" value="#{userNonTechnicalSkills.selectedNonTechSkill.untsSkillOneLineDescription}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Non Technical Skill Percentage"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userNonTechnicalSkills.selectedNonTechSkill ne item}" value="#{item.untsSkillPercentage}"/>
+                            <h:inputText  id="skillper" label="Skill Persentage" required="true" rendered="#{userNonTechnicalSkills.selectedNonTechSkill eq item}" value="#{userNonTechnicalSkills.selectedNonTechSkill.untsSkillPercentage}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Actions"/>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-check" rendered="#{userNonTechnicalSkills.selectedNonTechSkill eq item}" ajax="false" value="Update" actionListener="#{userNonTechnicalSkills.updateNonTechSkill}"  />
+                            <p:commandButton icon="ui-icon-pencil" rendered="#{userNonTechnicalSkills.selectedNonTechSkill ne item}" ajax="false" value="Edit" actionListener="#{userNonTechnicalSkills.setSelectedNonTechSkill(item)}"  />
+                            <p:commandButton icon="ui-icon-close" value="Delete" ajax="false" actionListener="#{userNonTechnicalSkills.deleteNonTechSkill(item)}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:panel>
+        </f:view>
+
+    </h:body>
+</html>
+

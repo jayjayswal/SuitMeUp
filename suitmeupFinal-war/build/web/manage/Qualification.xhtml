@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <h:head>
+        <title>Qualification</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menubar.xhtml" />
+        <f:view>
+            <p:panel header="Qualification"> 
+                <h:form>
+                     <p:messages id="msgs" />  
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="QualificationName" value="Qualification Name:" />
+                        <p:inputText id="QualificationName" label="Qualification Name" value="#{userQualification.newQualification.uqQualificationName}" required="true" requiredMessage="The Qualification Name field is required."/>
+                        <p:outputLabel for="QualificationInstitute" value="Qualification Institute:" />
+                        <p:inputText id="QualificationInstitute" label="Qualification Institute" value="#{userQualification.newQualification.uqQualificationInstitute}" required="true" requiredMessage="The Qualification Institute field is required."/>
+                        <p:outputLabel for="QualificationDescription" value="Qualification One-Line Description:" />
+                        <p:inputText id="QualificationDescription" label="Qualification Description" value="#{userQualification.newQualification.uqQualificationOneLineDescription}" required="true" requiredMessage="The Qualification One-Line Description field is required." />
+                        <p:outputLabel for="QualificationYear" value="Qualification Passing Year:" />
+                        <p:calendar id="QualificationYear" label="Qualification Year" value="#{userQualification.newQualification.uqQualificationPassingYear}" showOn="button" pattern="dd-MM-yyyy" required="true" requiredMessage="The Qualification Passing Year field is required." />
+                        <p:outputLabel for="QualificationPercentage" value="Qualification Percentage:" />
+                        <p:inputText id="QualificationPercentage" label="Qualification Percentage" value="#{userQualification.newQualification.uqQualificationPercentage}" required="true" requiredMessage="The Qualification Percentage field is required." />
+                        <f:facet name="footer">
+                            <p:commandButton value="Add Item" ajax="false" action="#{userQualification.createQualification()}" update="growl" process="@this" />
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+
+                <p:spacer height="30px;"/> 
+
+                <h:form>
+                    <p:dataTable value="#{userQualification.userqualification}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Qualification Name"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userQualification.selectedQualification ne item}" value="#{item.uqQualificationName}"/>
+                            <h:inputText  id="QualificationName" required="true" label="Qualification Name" rendered="#{userQualification.selectedQualification eq item}" value="#{userQualification.selectedQualification.uqQualificationName}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Qualification Institute"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userQualification.selectedQualification ne item}" value="#{item.uqQualificationInstitute}"/>
+                            <h:inputText id="QualificationInstitute"  required="true" label="Qualification Institute" rendered="#{userQualification.selectedQualification eq item}" value="#{userQualification.selectedQualification.uqQualificationInstitute}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Qualification One-Line Description"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userQualification.selectedQualification ne item}" value="#{item.uqQualificationOneLineDescription}"/>
+                            <h:inputText id="QualificationDescription"   required="true" label="Qualification Description" rendered="#{userQualification.selectedQualification eq item}" value="#{userQualification.selectedQualification.uqQualificationOneLineDescription}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Qualification Passing Year"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userQualification.selectedQualification ne item}" value="#{item.uqQualificationPassingYear}">    
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>                            
+                            <p:calendar id="QualificationYear" label="Qualification Year" rendered="#{userQualification.selectedQualification eq item}" value="#{userQualification.selectedQualification.uqQualificationPassingYear}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Qualification Percentage"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userQualification.selectedQualification ne item}" value="#{item.uqQualificationPercentage}"/>
+                            <h:inputText id="QualificationPercentage"     required="true"  label="Qualification Percentage" rendered="#{userQualification.selectedQualification eq item}" value="#{userQualification.selectedQualification.uqQualificationPercentage}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Actions"/>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-check" rendered="#{userQualification.selectedQualification eq item}" ajax="false" value="Update" actionListener="#{userQualification.updateQualification()}"  />
+                            <p:commandButton icon="ui-icon-pencil" rendered="#{userQualification.selectedQualification ne item}" ajax="false" value="Edit" actionListener="#{userQualification.setSelectedQualification(item)}"  />
+                            <p:commandButton icon="ui-icon-close" value="Delete" ajax="false" actionListener="#{userQualification.deleteQualification(item)}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:panel>
+        </f:view>
+    </h:body>
+</html>
+

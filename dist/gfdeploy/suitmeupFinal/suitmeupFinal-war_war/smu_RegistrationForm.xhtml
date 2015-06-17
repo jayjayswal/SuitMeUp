@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Registration Form</title>
+        <style>
+            body{
+                border-top: 8px solid #f90;
+                margin: 0 auto;
+                padding: 30px 0 0;
+                width: 100%;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <center><span style="font-family:Helvetica Neue,Helvetica,Arial,Verdana,sans-serif;color: #807b6e;font-size: 50px;font-weight: 500;">SuitMeUP</span></center>
+        <h:form prependId="false">
+            <p:growl id="growl" showDetail="true"/>
+
+            <p:wizard>
+                <p:tab id="account" title="Account">
+                    <p:panel header="Account Information">
+                        <p:messages />
+                        <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
+                            <p:outputLabel value="Username: " />
+                            <p:inputText value="#{registerBean.user.username}" label="Username" placeholder="Login" required="true" />
+
+                            <p:outputLabel value="Password: " />
+                            <p:password value="#{registerBean.user.password}" label="Password" match="cpswd" placeholder="Password" feedback="true" required="true" />
+
+                            <p:outputLabel value="Confirm Password: " />
+                            <p:password value="#{registerBean.user.password}" label="Confirm Password" id="cpswd" placeholder="Password" required="true" />
+
+                            <p:outputLabel value="Email: " />
+                            <p:inputText value="#{registerBean.user.email}" label="Email" placeholder="Please enter your email ID" />
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="user" title="User">
+                    <p:panel header="User Information">
+                        <p:messages />
+                        <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
+                            <p:outputLabel value="First Name: " />
+                            <p:inputText value="#{registerBean.details.udUserFirstName}" required="true" label="First Name" placeholder="Name" />
+
+                            <p:outputLabel value="Last Name: " />
+                            <p:inputText value="#{registerBean.details.udUserLastName}" required="true" label="Last Name" placeholder="Surname" />
+
+                            <p:outputLabel value="User Date Of Birth:" for="udUserDateOfBirth" />
+                            <p:calendar id="udUserDateOfBirth" placeholder="DOB" value="#{registerBean.details.udUserDateOfBirth}" showOn="button" pattern="dd-MM-yyyy" title="UdUserDateOfBirth" required="true" requiredMessage="The UdUserDateOfBirth field is required." />
+
+
+                            <p:outputLabel value="Gender: " />
+                            <p:selectOneMenu id="gender" value="#{registerBean.details.udUserGender}" style="width:225px">
+                                <f:selectItem itemLabel="Gender" itemValue="" />
+                                <f:selectItem itemLabel="Male" itemValue="Male" />
+                                <f:selectItem itemLabel="Female" itemValue="Female" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Phone: " />
+                            <p:inputText value="#{registerBean.details.udUserPhone}" label="Phone" placeholder="Number" validatorMessage="Phone Number should be of 10 digits">
+
+                            </p:inputText>
+
+                            <p:outputLabel value="Address Line one: " />
+                            <p:inputText value="#{registerBean.details.udUserAddressLineOne}" required="true" label="Address" placeholder="Address" />
+
+                            <p:outputLabel value="Address Line two: " />
+                            <p:inputText value="#{registerBean.details.udUserAddressLineTwo}"  required="true" label="Address" placeholder="Address" />
+
+                            <p:outputLabel value="Zip Code: " />
+                            <p:inputText value="#{registerBean.details.udUserPincode}" label="Zip Code" placeholder="Code" />
+
+                            <p:outputLabel value="Google Plus: " />
+                            <p:inputText value="#{registerBean.details.udUserGooglePlusProfile}" label="Google Plus" placeholder="Google Plus" />
+
+                            <p:outputLabel value="Facebook: " />
+                            <p:inputText value="#{registerBean.details.udUserFacebookProfile}" label="Facebook" placeholder="Facebook" />
+
+                            <p:outputLabel value="Linkedin: " />
+                            <p:inputText value="#{registerBean.details.udUserLinkedinProfile}" label="Linkedin" placeholder="Linkedin" />
+
+                            <p:outputLabel value="Twitter: " />
+                            <p:inputText value="#{registerBean.details.udUserTwitterProfile}" label="Twitter" placeholder="Twitter" />
+
+                            <p:outputLabel value="Country: " />
+                            <p:selectOneMenu id="country" value="#{registerBean.details.udUserCountry}" style="width:225px">
+                                <p:ajax listener="#{registerBean.onCountryChange()}" update="state" />
+                                <f:selectItem itemLabel="Select Country" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{registerBean.countries}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="State: " />
+                            <p:selectOneMenu id="state" value="#{registerBean.details.udUserState}" style="width:225px">
+                                <p:ajax listener="#{registerBean.onStateChange()}" update="city" />
+                                <f:selectItem itemLabel="Select Country" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{registerBean.states}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="City: " />
+                            <p:selectOneMenu id="city" value="#{registerBean.details.udUserCity}" style="width:225px">
+                                <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{registerBean.cities}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="personal" title="Personal">
+                    <p:panel header="Personal Information">
+                        <p:messages />
+                        <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
+                            <p:outputLabel value="Personal OneLine Description:" for="updPersonalOneLineDescription" />
+                            <p:inputText size="50" id="updPersonalOneLineDescription" value="#{registerBean.personal.updPersonalOneLineDescription}" title="UpdPersonalOneLineDescription" required="true" requiredMessage="The UpdPersonalOneLineDescription field is required."/>
+                            <p:outputLabel value="Personal Profession:" for="updPersonalProfession" />
+                            <p:inputText size="50" id="updPersonalProfession" value="#{registerBean.personal.updPersonalProfession}" required="true" title="UpdPersonalProfession" />
+                            <p:outputLabel value="Personal Description:" for="updPersonalDescription" />
+                            <p:inputTextarea rows="10" cols="50" id="updPersonalDescription" value="#{registerBean.personal.updPersonalDescription}" required="true" title="UpdPersonalDescription" />
+                       </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+                
+                <p:tab id="profession" title="profession">
+                    <p:panel header="profession Information">
+                        <p:messages />
+                        <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
+                            <h:outputLabel value="Professional OneLine Description:" for="updProfessionalOneLineDescription" />
+                            <h:inputText size="50" id="updProfessionalOneLineDescription" value="#{registerBean.professional.updProfessionalOneLineDescription}" title="UpdProfessionalOneLineDescription" required="true" requiredMessage="The UpdProfessionalOneLineDescription field is required."/>
+                            <h:outputLabel value="Professional Profession:" for="updProfessionalProfession" />
+                            <h:inputText size="50" id="updProfessionalProfession" value="#{registerBean.professional.updProfessionalProfession}" title="UpdProfessionalProfession" />
+                            <h:outputLabel value="Professional Description:" for="updProfessionalDescription" />
+                            <h:inputTextarea rows="10" cols="50" id="updProfessionalDescription" value="#{registerBean.professional.updProfessionalDescription}" title="UpdProfessionalDescription" />
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="confirm" title="Confirmation">
+                    <p:panel header="Confirm Details">
+                        <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
+                            <p:outputLabel value="Username: " />
+                            <p:outputLabel value="#{registerBean.user.username}" styleClass="outputLabel"/>
+
+                            <p:outputLabel value="Email ID: " />
+                            <p:outputLabel value="#{registerBean.user.email}" styleClass="outputLabel"/>
+
+                            <p:outputLabel value="Full Name: " />
+                            <p:outputLabel value="#{registerBean.details.udUserFirstName} #{registerBean.details.udUserLastName}" styleClass="outputLabel"/>                                                            
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5"> 
+                            <p:outputLabel value="Gender: " />
+                            <p:outputLabel value="#{registerBean.details.udUserGender}" styleClass="outputLabel"/>
+
+                            <p:outputLabel value="Phone No: " />
+                            <p:outputLabel value="#{registerBean.details.udUserPhone}" styleClass="outputLabel"/>
+
+                           
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2" columnClasses="label, value" cellpadding="5">
+                            <p:outputLabel value="Country: " />
+                            <p:outputLabel value="#{registerBean.details.udUserCountry}" styleClass="outputLabel"/>
+
+                            <p:outputLabel value="City: " />
+                            <p:outputLabel value="#{registerBean.details.udUserCity}" styleClass="outputLabel"/> 
+
+                            <p:commandButton value="Submit" actionListener="#{registerBean.save()}" update="growl" process="@this"/>           
+                        </h:panelGrid>  
+                    </p:panel>
+                </p:tab>
+            </p:wizard>
+        </h:form>
+    </h:body>
+</html>
+

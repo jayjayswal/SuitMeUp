@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./pageTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="bannerSpace">
+        <ui:include src="slider.xhtml" />
+    </ui:define>
+
+    <ui:define name="bannerTextSpace">
+        <div class="bannerText container">
+            <h:outputText value="#{UserLife.setValues()}" />
+            <h4>I'm <h:outputText value="#{UserLife.userdetails.udUserFirstName.concat(' ').concat(UserLife.userdetails.udUserLastName)}" /></h4>
+            <h5><h:outputText value="#{UserLife.userperdetails.updPersonalOneLineDescription}" /></h5>
+        </div>
+    </ui:define>
+
+    <ui:define name="navBarSpace">
+        <!--menu start-->
+        <div class="menu">
+            <div class="navbar-wrapper">
+                <div class="container">
+                    <div class="navwrapper">
+                        <div class="navbar navbar-inverse navbar-static-top">
+                            <div class="container">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                    <a class="navbar-brand" href="#">Menu</a>
+                                </div>
+                                <div class="navbar-collapse collapse">
+                                    <ul class="nav navbar-nav">
+                                        <li class="menuItem active"><a href="#wrapper">Home</a></li>
+                                        <li class="menuItem"><a href="#aboutme">About</a></li>
+                                        <li class="menuItem"><a href="#technical">Skills</a></li>
+                                        <li class="menuItem"><a href="#exprience">Activities</a></li>
+                                        <li class="menuItem"><a href="#education">Achievement</a></li>
+                                        <!--                            <li class="menuItem"><a href="#services">Services</a></li>-->
+                                        <li class="menuItem"><a href="#contact">Contact</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div> 
+                    </div><!-- End Navbar -->
+                </div>
+            </div>
+        </div>
+        <!--menu end-->
+    </ui:define>
+
+    <ui:define name="aboutMeSpace">
+        <!--about me start-->
+        <section class="aboutme" id="aboutme">
+
+            <div class="container">
+                <div class="heading">
+                    <h2>About me</h2>
+                    <p>A small introduction about my personal life</p>
+                </div>
+                <div class="row">
+                    <div class=" col-xs-12 col-sm-12 col-md-7 col-lg-7">
+                        <h3><h:outputText value="#{UserLife.userdetails.udUserFirstName.concat(' ').concat(UserLife.userdetails.udUserLastName)}" /></h3>
+                        <h4 class="subHeading"><h:outputText value="#{UserLife.userperdetails.updPersonalProfession}" /></h4>
+                        <!--                            <p>Hello,I am an enthusiastic and creative person with over two year designing experience. My strengths are in Graphic Designing,App-Web development, advertising, programming, and communication.</p>
+                        
+                                                     <p>I am passionate about good visual communication and collaborating with clients to facilitate creative problem-solving. I enjoy meeting new challenges and utilising my time-management and organisational skills to ensure that my work is completed to strict timelines, with a high-level of accuracy and attention to detail. I am committed to working to an exceptionally high standard in everything I do. </p>
+                        
+                                                     <p>You can download my printable CV by clicking on the button given below.</p>-->
+                        <p>#{UserLife.userperdetails.updPersonalDescription}</p><br /><br />
+                        <a href="#" class="bntDownload fa fa-download fa-2x">&nbsp;</a>
+                    </div>
+                    <div style="cursor: pointer;" class=" col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1 proPic">
+                        <h:graphicImage library="profileImages" height="350px" width="350px" class="img-circle" name="#{UserLife.userperdetails.updPersonalPicture}" />
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <!--about me end-->
+    </ui:define>
+
+    <ui:define name="technicalSpace">
+        <!--technical start-->
+        <section class="technical" id="technical">
+            <div class="container">
+
+                <div class="heading">
+                    <h2>Non-Technical Skills</h2>
+                    <p>I can say i’m quite good at</p>
+                </div>
+                <div class="row">
+                    <ui:repeat var="o" value="#{UserLife.usernontechskills}" varStatus="status">
+                        <div class=" col-xs-12 col-sm-4 col-md-4 col-lg-4 skillsArea">
+                            <div class=" col-xs-12 col-sm-6 col-md-6 col-lg-6 skills">
+
+                                <span class="chart skilBg" data-percent="#{o.untsSkillPercentage}">
+                                    <span class="percent"></span>
+                                </span>
+                                <h4><h:outputText value="#{o.untsSkillName}" /></h4>
+                                <p><h:outputText value="#{o.untsSkillOneLineDescription}" /></p>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </div>
+            </div>
+        </section>
+        <!--technical end-->
+    </ui:define>
+
+    <ui:define name="timelineOneSpace">
+        <!--exprience start-->
+        <section class="exprience" id="exprience">
+
+            <div class="container">
+                <div class="heading">
+                    <h2>Activities</h2>
+                    <p>My previous activities</p>
+                </div>
+                <ui:repeat var="activity" value="#{UserLife.useractivities}" varStatus="status">
+                    <div class="row workDetails">
+                        <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                            <div class="workYear"> 
+                                    <h:outputText  value="#{activity.uaActivityDate}">
+                                <f:convertDateTime type="date" dateStyle="medium"/>
+                            </h:outputText>  
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 rightArea">
+                            <div class="arrowpart"></div>
+                            <div class="exCon">
+                                <h4>#{activity.uaActivityName}</h4>
+                                <p>#{activity.uaActivityDescription}</p>
+                            </div>
+                        </div>
+                    </div>
+                </ui:repeat>
+              
+
+            </div>
+
+        </section>
+        <!--exprience end-->
+    </ui:define>
+
+    <ui:define name="timelineTwoSpace">
+        <!--education start-->
+        <section class="education" id="education">
+
+            <div class="container">
+                <div class="heading">
+                    <h2>Achievement</h2>
+                    <p>What I have done in my Life</p>
+                </div>
+                <ui:repeat var="o" value="#{UserLife.userachievements}" varStatus="status">
+                    <div class="row workDetails">
+                        <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                            <div class="workYear">
+                                <h:outputText value="#{o.uaAchievementDate}">
+                                    <f:convertDateTime type="date" pattern="MM,yyyy"/>
+                                </h:outputText>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 rightArea">
+                            <div class="arrowpart"></div>
+                            <div class="exCon">
+                                <h4>#{o.uaAchievementName}</h4>
+                                <p>#{o.uaAchievementDescription}</p>
+                            </div>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+        </section>
+        <!--education end-->
+    </ui:define>
+
+    <ui:define name="getInTouchSpace">
+        <section class="contact" id="contact">
+
+            <div class="container topCon">
+                <div class="heading">
+                    <h2>Get In Touch</h2>
+                    <p>Please feel free if you would like to have a chat.</p>
+                </div>
+            </div>
+
+            <div class="row mapArea">
+                <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/?ie=UTF8&amp;ll=22.3032614,73.2093613&amp;spn=0.01134,0.026157&amp;t=m&amp;z=16&amp;output=embed"></iframe>
+            </div>
+
+        </section>
+
+        <section class="contactDetails">
+            <div class="container">
+
+                <!--contact info start-->
+                <div class="col-xs-12 col-sm-3 col-md-4 col-lg-4">
+                    <h4>Contact details</h4>
+                    <p> <i class="fa fa-map-marker fa-lg"></i>#{UserLife.userdetails.udUserCity.concat(', ').concat(UserLife.userdetails.udUserState).concat(', ').concat(UserLife.userdetails.udUserCountry)}</p>
+                    <p> <i class="fa fa-mobile fa-lg"></i> +91 #{UserLife.userdetails.udUserPhone}</p>
+                    <p> <i class="fa fa-envelope-o "></i> <a href="mailto:#{UserLife.userdetails.smuUserCredentials.ucUserEmail}">#{UserLife.userdetails.smuUserCredentials.ucUserEmail}</a></p>
+                    <p> <i class="fa fa-link "></i> <a href="www.iamcrazy.info/miraj">www.iamcrazy.info/miraj</a></p>
+                </div>
+                <!--contact info end-->
+
+                <!--contact form start-->
+                <div class="col-xs-12 col-sm-9 col-md-8 col-lg-8 conForm">
+                    <h4>Shoot a message!</h4>
+                    <div id="message"></div>
+                    <form method="post" action="php/contact.php" name="cform" id="cform">
+                        <input name="name" id="name" type="text" class="col-xs-12 col-sm-6 col-md-6 col-lg-6" placeholder="Your name..." />
+                        <input name="email" id="email" type="email" class=" col-xs-12 col-sm-6 col-md-6 col-lg-6 noMarr" placeholder="Your email..." />
+                        <textarea name="comments" id="comments" cols="" rows="" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="Your message..."></textarea>
+
+                        <input type="submit" id="submit" name="send" class="submitBnt" value="Send message" />
+                        <div id="simple-msg"></div>
+                    </form>
+                </div>
+                <!--contact form end-->
+
+            </div>
+        </section>
+
+        <!--contact end-->
+
+    </ui:define>
+
+    <ui:define name="footerSpace">
+        <!--footer start-->
+        <section class="footer" id="footer">
+            <div class="container">
+
+                <ul>
+                    <li><a href="#{UserLife.userdetails.udUserGooglePlusProfile}"><i class="fa fa-google-plus fa-2x"></i></a></li>
+                    <li><a href="#{UserLife.userdetails.udUserTwitterProfile}"><i class="fa fa-twitter fa-2x"></i></a></li>
+                    <li><a href="#{UserLife.userdetails.udUserFacebookProfile}"><i class="fa fa-facebook fa-2x"></i></a></li>
+                    <li><a href="#{UserLife.userdetails.udUserLinkedinProfile}"><i class="fa fa-linkedin fa-2x"></i></a></li>
+                </ul>
+
+            </div>
+        </section>
+        <!--footer end-->
+
+    </ui:define>
+    <ui:define name="portfolioSpace"></ui:define>
+    <ui:define name="scriptSpace">
+
+        <!--modernizr js-->
+        <h:outputScript library="js" name="modernizr.custom.26633.js" />
+        <!--jquary min js-->
+        <h:outputScript library="js" name="jquery.min.js" />
+        <h:outputScript library="js" name="bootstrap.js" />
+        <h:outputScript library="js" name="jquery.gridrotator.js" />
+
+
+        <!--for custom jquary-->
+        <h:outputScript library="js" name="custom.js" />
+
+        <!--for placeholder jquary-->
+        <h:outputScript library="js" name="jquery.placeholder.js" />
+
+
+        <!--for menu jquary-->
+        <h:outputScript library="js" name="stickUp.js" />
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $(document).ready(function () {
+                    //enabling stickUp on the '.navbar-wrapper' class
+                    //alert("sd");
+                    $("title").text("#{UserProfession.userdetails.udUserFirstName}");
+                    $('.navbar-wrapper').stickUp({
+                        parts: {
+                            0: 'banner',
+                            1: 'aboutme',
+                            2: 'technical',
+                            3: 'exprience',
+                            4: 'education',
+                            5: 'protfolio',
+                            6: 'contact'
+
+                        },
+                        itemClass: 'menuItem',
+                        itemHover: 'active',
+                        topMargin: 'auto'
+                    });
+                });
+
+                $(".navbar.navbar-inverse.navbar-static-top a").click(function () {
+                    $(".navbar-collapse").addClass("hideClass");
+                });
+
+
+                $(".navbar.navbar-inverse.navbar-static-top a").click(function () {
+                    $(".navbar-collapse").addClass("collapse");
+                });
+
+
+                $(".navbar.navbar-inverse.navbar-static-top a").click(function () {
+                    $(".navbar-collapse").removeClass("in");
+                });
+
+                $(".navbar-toggle").click(function () {
+                    $(".navbar-collapse").removeClass("hideClass");
+                });
+
+
+            });
+        </script>
+
+
+        <!--for portfoli filter jquary-->
+        <h:outputScript library="js" name="jquery.isotope.js" />
+        <h:outputScript library="js" name="stickUp.js" />
+
+        <!--for portfoli lightbox -->
+        <h:outputStylesheet library="css" name="jquery-ui-1.8.16.custom.css" />   
+        <h:outputStylesheet library="css" name="lightbox.min.css" />   
+        <h:outputScript library="js" name="jquery.ui.widget.min.js" />   
+        <h:outputScript library="js" name="jquery.ui.rlightbox.js" />
+
+        <!--for skill chat jquary-->
+        <h:outputScript library="js" name="jquery.easing.min.js" />
+        <h:outputScript library="js" name="jquery.easypiechart.js" />
+
+
+        <!--contact form js-->
+        <h:outputScript library="js" name="jquery.contact.js" />
+    </ui:define>
+
+</ui:composition>

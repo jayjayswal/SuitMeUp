@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <h:head>
+        <title>Work Experience</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menubar.xhtml" />
+        <f:view>
+            <p:panel header="Work Experience"> 
+                <h:form>
+                    <p:messages id="msgs" />
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="WorkExperienceName" value="Company Name:" />
+                        <p:inputText id="WorkExperienceName" label="WorkExperience Name" value="#{userWorkExperience.newWorkEx.uweExperienceCompanyName}" required="true" requiredMessage="The Company Name field is required."/>
+                        <p:outputLabel for="WorkExperienceName" value="Experience One-Line Description:" />
+                        <p:inputText id="WorkExperienceDescription" label="WorkExperience Description" value="#{userWorkExperience.newWorkEx.uweExperienceOneLineDescription}" required="true" requiredMessage="The Experience One-Line Description field is required."/>
+                        <p:outputLabel  for="WorkExperienceName" value="Experience Designation:" />
+                        <p:inputText  id="WorkExperienceDesignation" label="WorkExperience Designation" value="#{userWorkExperience.newWorkEx.uweExperienceDesignation}" required="true" requiredMessage="The Experience Designation field is required." />
+                        <p:outputLabel for="WorkExperienceName" value="Experience Start Date:" />
+                        <p:calendar id="WorkExperienceStartDate" label="WorkExperience Start Date" value="#{userWorkExperience.newWorkEx.uweExperienceStartDate}" showOn="button" pattern="dd-MM-yyyy" required="true" requiredMessage="The Qualification Passing Year field is required." />
+                        <p:outputLabel for="WorkExperienceName" value="Experience End Date:" />
+                        <p:calendar id="WorkExperienceEndDate" label="WorkExperience End Date" value="#{userWorkExperience.newWorkEx.uweExperienceEndDate}" showOn="button" pattern="dd-MM-yyyy" required="true" requiredMessage="The Qualification Passing Year field is required." />
+                        <f:facet name="footer">
+                            <p:commandButton value="Add Item" ajax="false" action="#{userWorkExperience.createExperience()}"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+                
+                <p:spacer height="30px;"/>
+
+                <h:form>
+                    <p:dataTable value="#{userWorkExperience.userWorkEx}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Company Name"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userWorkExperience.selectedWorkEx ne item}" value="#{item.uweExperienceCompanyName}"/>
+                            <h:inputText id="WorkExperienceName" label="WorkExperienceName"  required="true" rendered="#{userWorkExperience.selectedWorkEx eq item}" value="#{userWorkExperience.selectedWorkEx.uweExperienceCompanyName}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Experience One-Line Description"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userWorkExperience.selectedWorkEx ne item}" value="#{item.uweExperienceOneLineDescription}"/>
+                            <h:inputText id="WorkExperienceDescription" label="WorkExperience Description"  required="true" rendered="#{userWorkExperience.selectedWorkEx eq item}" value="#{userWorkExperience.selectedWorkEx.uweExperienceOneLineDescription}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Experience Designation"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userWorkExperience.selectedWorkEx ne item}" value="#{item.uweExperienceDesignation}"/>
+                            <h:inputText id="WorkExperienceDesignation" label="WorkExperienceDesignation"  required="true" rendered="#{userWorkExperience.selectedWorkEx eq item}" value="#{userWorkExperience.selectedWorkEx.uweExperienceDesignation}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Experience Start Date"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userWorkExperience.selectedWorkEx ne item}" value="#{item.uweExperienceStartDate}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:outputText>    
+                            <p:calendar id="WorkExperienceStartDate" label="WorkExperience Start Date"  rendered="#{userWorkExperience.selectedWorkEx eq item}" value="#{userWorkExperience.selectedWorkEx.uweExperienceStartDate}" showOn="button" pattern="dd-MM-yyyy" required="true" requiredMessage="The Qualification Passing Year field is required." />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Experience End Date"/>
+                            </f:facet>
+                            <h:outputText rendered="#{userWorkExperience.selectedWorkEx ne item}" value="#{item.uweExperienceEndDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>        
+                            <p:calendar id="WorkExperienceEndDate" label="WorkExperience End Date"  rendered="#{userWorkExperience.selectedWorkEx eq item}" value="#{userWorkExperience.selectedWorkEx.uweExperienceEndDate}" showOn="button" pattern="dd-MM-yyyy" required="true" requiredMessage="The Qualification Passing Year field is required." />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Actions"/>
+                            </f:facet>
+                            <p:commandButton icon="ui-icon-check" rendered="#{userWorkExperience.selectedWorkEx eq item}" ajax="false" value="Update" actionListener="#{userWorkExperience.updateExperience}"  />
+                            <p:commandButton icon="ui-icon-pencil" rendered="#{userWorkExperience.selectedWorkEx ne item}" ajax="false" value="Edit" actionListener="#{userWorkExperience.setSelectedWorkEx(item)}"  />
+                            <p:commandButton icon="ui-icon-close" value="Delete" ajax="false" actionListener="#{userWorkExperience.deleteExperience(item)}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:panel>
+        </f:view>
+    </h:body>
+</html>
+

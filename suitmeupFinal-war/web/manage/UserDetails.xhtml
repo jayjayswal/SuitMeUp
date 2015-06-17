@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menubar.xhtml" />
+        <f:view>
+            <p:panel header="Personal Details"> 
+                <h:form> 
+                    <p:messages id="msgs" />
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="User FirstName:" for="udUserFirstName" />
+                        <p:inputText id="udUserFirstName" value="#{userDetails.selectedUSerDetails.udUserFirstName}" title="UdUserFirstName" required="true" requiredMessage="The UdUserFirstName field is required."/>
+                        <p:outputLabel value="User LastName:" for="udUserLastName" />
+                        <p:inputText id="udUserLastName" value="#{userDetails.selectedUSerDetails.udUserLastName}" title="UdUserLastName" required="true" requiredMessage="The UdUserLastName field is required."/>
+                        <p:outputLabel value="User Gender:" for="udUserGender" />
+                        <p:inputText id="udUserGender" value="#{userDetails.selectedUSerDetails.udUserGender}" title="UdUserGender" required="true" requiredMessage="The UdUserGender field is required."/>
+                        <p:outputLabel value="User Date Of Birth:" for="udUserDateOfBirth" />
+                        <p:calendar id="udUserDateOfBirth" value="#{userDetails.selectedUSerDetails.udUserDateOfBirth}" showOn="button" pattern="dd-MM-yyyy" title="UdUserDateOfBirth" required="true" requiredMessage="The UdUserDateOfBirth field is required." />
+                        <p:outputLabel value="User AddressLine One:" for="udUserAddressLineOne" />
+                        <p:inputText id="udUserAddressLineOne" value="#{userDetails.selectedUSerDetails.udUserAddressLineOne}" title="UdUserAddressLineOne" />
+                        <p:outputLabel value="User AddressLine Two:" for="udUserAddressLineTwo" />
+                        <p:inputText id="udUserAddressLineTwo" value="#{userDetails.selectedUSerDetails.udUserAddressLineTwo}" title="UdUserAddressLineTwo" />
+                        <p:outputLabel value="User City:" for="udUserCity" />
+                        <p:inputText id="udUserCity" value="#{userDetails.selectedUSerDetails.udUserCity}" title="UdUserCity" required="true" requiredMessage="The UdUserCity field is required."/>
+                        <p:outputLabel value="User State:" for="udUserState" />
+                        <p:inputText id="udUserState" value="#{userDetails.selectedUSerDetails.udUserState}" title="UdUserState" required="true" requiredMessage="The UdUserState field is required."/>
+                        <p:outputLabel value="User Country:" for="udUserCountry" />
+                        <p:inputText id="udUserCountry" value="#{userDetails.selectedUSerDetails.udUserCountry}" title="UdUserCountry" required="true" requiredMessage="The UdUserCountry field is required."/>
+                        <p:outputLabel value="UdUserPincode:" for="udUserPincode" />
+                        <p:inputText id="udUserPincode" value="#{userDetails.selectedUSerDetails.udUserPincode}" title="UdUserPincode" />
+                        <p:outputLabel value="User Phone:" for="udUserPhone" />
+                        <p:inputText id="udUserPhone" value="#{userDetails.selectedUSerDetails.udUserPhone}" title="UdUserPhone" />
+                        <p:outputLabel value="User GooglePlus Profile:" for="udUserGooglePlusProfile" />
+                        <p:inputText id="udUserGooglePlusProfile" value="#{userDetails.selectedUSerDetails.udUserGooglePlusProfile}" title="UdUserGooglePlusProfile" />
+                        <p:outputLabel value="User Facebook Profile:" for="udUserFacebookProfile" />
+                        <p:inputText id="udUserFacebookProfile" value="#{userDetails.selectedUSerDetails.udUserFacebookProfile}" title="UdUserFacebookProfile" />
+                        <p:outputLabel value="User Linkedin Profile:" for="udUserLinkedinProfile" />
+                        <p:inputText id="udUserLinkedinProfile" value="#{userDetails.selectedUSerDetails.udUserLinkedinProfile}" title="UdUserLinkedinProfile" />
+                        <p:outputLabel value="User Twitter Profile:" for="udUserTwitterProfile" />
+                        <p:inputText id="udUserTwitterProfile" value="#{userDetails.selectedUSerDetails.udUserTwitterProfile}" title="UdUserTwitterProfile" />
+                        <p:outputLabel value="User Location Latitude:" for="udUserLocationLatitude" />
+                        <p:inputText id="udUserLocationLatitude" value="#{userDetails.selectedUSerDetails.udUserLocationLatitude}" title="UdUserLocationLatitude" />
+                        <p:outputLabel value="User Location Longitude:" for="udUserLocationLongitude" />
+                        <p:inputText id="udUserLocationLongitude" value="#{userDetails.selectedUSerDetails.udUserLocationLongitude}" title="UdUserLocationLongitude" />                        
+                        <f:facet name="footer">
+                            <p:commandButton ajax="false" value="Update My Details" action="#{userDetails.updateDetails()}"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:panel>
+        </f:view>
+    </h:body>
+</html>
+
